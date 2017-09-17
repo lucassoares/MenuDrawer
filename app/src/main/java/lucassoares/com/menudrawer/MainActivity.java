@@ -1,9 +1,6 @@
 package lucassoares.com.menudrawer;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,14 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.text.util.Linkify;
-
 import lucassoares.com.menudrawer.Service.InternetSite;
+import lucassoares.com.menudrawer.Service.myNotification;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private InternetSite internetSite;
+    private myNotification myNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +34,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         internetSite = new InternetSite(this);
+        myNotification = new myNotification(this);
     }
 
     @Override
@@ -79,14 +77,19 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.numero){
             internetSite.AcessarNumero();
+            myNotification.notificationBuilder("Abrindo app","Numero de telefone");
         } else if (id == R.id.email) {
             internetSite.AcessarEmail();
+            myNotification.notificationBuilder("Abrindo app","E-mail");
         } else if (id == R.id.github) {
             internetSite.AcessarInternet("https://github.com/lucassoares");
+            myNotification.notificationBuilder("Abrindo site","Github");
         } else if (id == R.id.facebook) {
             internetSite.AcessarInternet("https://facebook.com.br");
+            myNotification.notificationBuilder("Abrindo site","Facebook");
         } else if (id == R.id.site) {
             internetSite.AcessarInternet("https://lucassoares.tk");
+            myNotification.notificationBuilder("Abrindo site","Site pessoal");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
